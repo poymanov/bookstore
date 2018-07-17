@@ -18,16 +18,20 @@ def add_command():
 
 def get_selected_row(event):
 	global selected_tuple
-	index = list1.curselection()[0]
-	selected_tuple = list1.get(index) 
+
 	e1.delete(0, END)
 	e2.delete(0, END)
 	e3.delete(0, END)
 	e4.delete(0, END)
-	e1.insert(END, selected_tuple[1])
-	e2.insert(END, selected_tuple[2])
-	e3.insert(END, selected_tuple[3])
-	e4.insert(END, selected_tuple[4])
+
+	if (list1.curselection()):
+		index = list1.curselection()[0]
+		selected_tuple = list1.get(index) 
+
+		e1.insert(END, selected_tuple[1])
+		e2.insert(END, selected_tuple[2])
+		e3.insert(END, selected_tuple[3])
+		e4.insert(END, selected_tuple[4])
 	
 def delete_command():
 	backend.delete(selected_tuple[0])	
