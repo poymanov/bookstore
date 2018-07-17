@@ -1,6 +1,20 @@
 from tkinter import *
 import backend
 
+def view_command():
+	list1.delete(0, END)
+	for row in backend.view():
+		list1.insert(END, row)
+
+def search_command():
+	list1.delete(0, END)
+	for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+		list1.insert(END, row)	
+
+def add_command():
+	backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+	search_command()
+
 window = Tk()
 
 l1 = Label(window, text="Title")
@@ -40,22 +54,24 @@ sb1.grid(row=2, column=2, rowspan=6)
 list1.configure(yscrollcommand=sb1.set)
 sb1.configure(command=list1.yview)
 
-b1 = Button(window, text="View all")
+b1 = Button(window, text="View all", command=view_command)
 b1.grid(row=2, column=3)
 
-b2 = Button(window, text="Search entry")
+b2 = Button(window, text="Search entry", command=search_command)
 b2.grid(row=3, column=3)
 
-b3 = Button(window, text="Add entry")
+b3 = Button(window, text="Add entry", command=add_command)
 b3.grid(row=4, column=3)
 
-b4 = Button(window, text="Update")
+b4 = Button(window, text="Update selected")
 b4.grid(row=5, column=3)
 
-b5 = Button(window, text="Delete")
+b5 = Button(window, text="Delete selected")
 b5.grid(row=6, column=3)
 
 b6 = Button(window, text="Close")
 b6.grid(row=7, column=3)
+
+view_command()
 
 window.mainloop()
